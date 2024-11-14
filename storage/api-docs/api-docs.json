@@ -1,0 +1,444 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Gestion de Produits",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api"
+        }
+    ],
+    "paths": {
+        "/category": {
+            "post": {
+                "tags": [
+                    "Catégories"
+                ],
+                "summary": "Créer une catégorie",
+                "operationId": "eff1cd45aae877fc48e08a32f5715e40",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Category"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Catégorie créée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            }
+        },
+        "/products": {
+            "get": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Obtenir tous les produits avec pagination",
+                "operationId": "080f057905dc32d2f11065d606dc4cd6",
+                "responses": {
+                    "200": {
+                        "description": "Liste des produits",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Créer un produit",
+                "operationId": "eddf8c7847239ddc1040daadd814e21b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Produit créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            }
+        },
+        "/products/{id}": {
+            "get": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Obtenir un produit par son ID",
+                "operationId": "b5099368868dbe7900acd129345eb148",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produit récupéré",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produit non trouvé"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Mettre à jour un produit",
+                "operationId": "2ce632b9d1c0c445557821d09add7ec2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produit mis à jour",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produit non trouvé"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Supprimer un produit",
+                "operationId": "76bb7dc4ab3fc3233d5b33ef58e95d7d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produit supprimé"
+                    },
+                    "404": {
+                        "description": "Produit non trouvé"
+                    }
+                }
+            }
+        },
+        "/filter": {
+            "post": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Filtrer les produits",
+                "operationId": "ae9585993726736c259f1b9e3d3d06df",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "per_page": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nom du produit"
+                                    },
+                                    "price_min": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 10
+                                    },
+                                    "price_max": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 100
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Liste des produits filtrés",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            }
+        },
+        "/sort": {
+            "post": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Trier les produits",
+                "operationId": "5a0ec9259246c8509d27bbe97050e15d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "per_page": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "sort_by": {
+                                        "type": "string",
+                                        "example": "name"
+                                    },
+                                    "sort_order": {
+                                        "type": "string",
+                                        "enum": [
+                                            "asc",
+                                            "desc"
+                                        ],
+                                        "example": "asc"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Liste des produits triés",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            }
+        },
+        "/search": {
+            "post": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Rechercher des produits",
+                "operationId": "78d82ee87424edb7e790f35fcdfdad95",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "query": {
+                                        "type": "string",
+                                        "example": "produit"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Liste des produits trouvés",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Category": {
+                "title": "Category",
+                "description": "Modèle représentant une catégorie de produits",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Nom de la catégorie",
+                        "type": "string",
+                        "example": "Alimentation"
+                    },
+                    "products": {
+                        "description": "Liste des produits associés à la catégorie",
+                        "type": "array",
+                        "items": {
+                            "description": "ID du produit",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Product": {
+                "title": "Product",
+                "description": "Modèle représentant un produit",
+                "required": [
+                    "name",
+                    "price"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Nom du produit",
+                        "type": "string",
+                        "example": "Télévision"
+                    },
+                    "description": {
+                        "description": "Description du produit",
+                        "type": "string",
+                        "example": "Télévision écran HD"
+                    },
+                    "price": {
+                        "description": "Prix du produit",
+                        "type": "number",
+                        "format": "float",
+                        "example": 199.99
+                    },
+                    "stock": {
+                        "description": "Quantité en stock du produit",
+                        "type": "integer",
+                        "example": 50
+                    },
+                    "categories": {
+                        "description": "Liste des catégories auxquelles le produit appartient",
+                        "type": "array",
+                        "items": {
+                            "description": "ID de la catégorie",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Catégories",
+            "description": "Gestion des catégories"
+        },
+        {
+            "name": "Produits",
+            "description": "Gestion des produits"
+        }
+    ]
+}
