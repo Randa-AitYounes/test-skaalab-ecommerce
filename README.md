@@ -64,3 +64,72 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Instructions de Déploiement et de Configuration
+
+## Prérequis
+
+Assurez-vous d'avoir installé les éléments suivants sur votre serveur :
+
+- PHP 
+- laravel 10
+- Git
+- Base de données (MySQL)
+
+## Étape 1 : Cloner le Dépôt
+
+
+ 1-  Connectez-vous à votre serveur .
+
+2- Exécutez cette commande: 
+git clone https://github.com/Randa-AitYounes/test-skaalab-ecommerce.git /path/votre/project
+
+## Étape 2 : Configurer l'environnement
+1- Copiez le fichier .env.example en .env
+2- configurer les paramètres dans le fichier .env: 
+
+APP_NAME=Laravel
+APP_ENV=production
+APP_KEY=base64:your_app_key
+APP_DEBUG=false
+APP_URL=http://votredomaine.com
+
+LOG_CHANNEL=stack
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=your_mailtrap_username
+MAIL_PASSWORD=your_mailtrap_password
+
+3- Générer la clé d'application: 
+php artisan key:generate
+
+## Étape 3 : Configurer la base de données
+
+1- Créer une nouvelle base de données
+2- Exécutez les migration: 
+php artisan migrate
+
+## Étape 4 : Tester l'API
+
+vous pouvez tester l'api en exécutant sur votre terminal: 
+  php artisan test
+
+  ## Utilisation de Postman ##
+  vous pouvez tester l'Api en utilisant postman.
+
+  ## Documentation de l'API
+
+La documentation de l'API est générée automatiquement à l'aide de Swagger. Vous pouvez accéder à la documentation en utilisant le lien suivant :
+
+(http://localhost:8000/api/documentation)
+
+
